@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 #home view
@@ -14,18 +15,22 @@ def home_view(request):
 
 
 #doctor view
-
 @login_required
 def doctor_view(request):
     doctors = Doctor.objects.all()
+    query = request.GET.get('q')
+    if query:
+        doctors = doctors.filter(Q(name__icontains=query) | Q(special__icontains=query))
     return render(request,'doctor.html',{'doctors':doctors})
 
 
-#patient view
-
+#patient view'
 @login_required
 def patient_view(request):
-    patients = Patient.objects.all() 
+    patients = Patient.objects.all()
+    query = request.GET.get('q')
+    if query:
+        patients = patients.filter(Q(name__icontains=query) | Q(disease__icontains=query))
     return render(request,'patient.html',{'patients':patients})
 
 
@@ -36,11 +41,13 @@ def about_view(request):
     return render(request,'about.html')
 
 #doctor appointment view
-
 @login_required
 def doctor_appointment_view(request,id):
     doctor = Doctor.objects.get(id=id)
     appointments = doctor.appointments.all()
+    query = request.GET.get('q')
+    if query:
+        appointments = appointments.filter(Q(patient__name__icontains=query) | Q(date__icontains=query))
     return render(request,'docapp.html',{'doctor':doctor,'appointments':appointments})
 
 #patient appointment view
@@ -49,6 +56,9 @@ def doctor_appointment_view(request,id):
 def patient_appointment_view(request,id):
     patient = Patient.objects.get(id=id)
     appointments = patient.appointments.all()
+    query = request.GET.get('q')
+    if query:  
+        appointments = appointments.filter(Q(doctor__name__icontains=query) | Q(date__icontains=query))
     return render(request,'patapp.html',{'patient':patient,'appointments':appointments})
 
 
@@ -154,6 +164,9 @@ def add_appointment_view(request):
 @login_required
 def appointments_view(request):
     appointments = Appointment.objects.all()
+    query = request.GET.get('q')
+    if query:
+        appointments = appointments.filter(Q(doctor__name__icontains=query) | Q(patient__name__icontains=query) | Q(date__icontains=query))
     return render(request,'appointment.html',{'appointments':appointments})
 
 

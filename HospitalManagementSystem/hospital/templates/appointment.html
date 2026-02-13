@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <center><h1 class="text-danger">Appointments</h1>
+        <form action="" method="get">
+            <input type="text" placeholder="Search anything..." name="q" class="p-1">
+            <button class="btn btn-outline-success">Search</button>
+        </form>
+
     <table class="table w-75 table-striped table-bordered table-hover text-center my-5">
         <tr>
             <th>Doctor</th>
