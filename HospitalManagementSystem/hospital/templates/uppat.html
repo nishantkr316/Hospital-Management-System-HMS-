@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <center><h1 class="text-warning">Update Patient Details</h1></center>
+    <form method="post" class="form w-50 mx-auto mt-5 border border-3 rounded p-3">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ patient.name }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text" name="age" value="{{ patient.age }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="gen">Gender:</label>
+            <input type="text" name="gen" value="{{ patient.gen }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="disease">Disease:</label>
+            <input type="text" name="disease" value="{{ patient.disease }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="mob">Mobile No:</label>
+            <input type="text" name="mob" value="{{ patient.mob }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" name="address" value="{{ patient.address }}" class="form-control">
+        </div>
+        <center><button type="submit" class="btn btn-primary mt-5">Update Patient</button></center>
+    </form>
+{% endblock %}

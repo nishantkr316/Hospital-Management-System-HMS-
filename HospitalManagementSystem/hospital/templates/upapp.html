@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+<center><h1 class="text-warning">Update Appointment Details</h1></center>
+<form method="post" class="form w-50 mx-auto mt-5  border border-3 rounded p-3">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="doctor">Doctor:</label>
+        <select name="doctor" id="doctor" class="form-control">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}" {% if appointment.doctor.id == doctor.id %}selected{% endif %}>{{ doctor.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="patient">Patient:</label>
+        <select name="patient" id="patient" class="form-control">
+            {% for patient in patients %}
+                <option value="{{ patient.id }}" {% if appointment.patient.id == patient.id %}selected{% endif %}>{{ patient.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date" value="{{ appointment.date }}" class="form-control">{{ appointment.date }}
+    </div>
+    <div class="form-group">
+        <label for="time">Time:</label>
+        <input type="time" name="time" id="time" value="{{ appointment.time }}" class="form-control">{{ appointment.time }}
+    </div>
+    <center><button type="submit" class="btn btn-primary mt-5">Update Appointment</button></center>
+</form>
+</center>
+
+{% endblock %}

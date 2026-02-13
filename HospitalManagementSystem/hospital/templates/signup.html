@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+
+{% block content %}
+<center>
+    <form action="" method="Post">
+        <fieldset>
+            <legend>Signup Details...</legend>
+            {% csrf_token %}
+            {{form.as_p}}
+            <br>
+            <button  class="btn btn-success rounded-pill">Register</button>
+        </fieldset>
+    </form>
+</center>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<center><h1 class="text-danger">Appointments</h1>
+    <table class="table w-75 table-striped table-bordered table-hover text-center my-5">
+        <tr>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.doctor.name }}</td>
+            <td>{{ appointment.patient.name }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>
+                <a href="{% url 'update_appointment' appointment.id %}" class="btn btn-warning btn-sm">Update</a>
+                <a href="{% url 'delete_appointment' appointment.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <button class="btn btn-success"><a href="{% url 'add_appointment' %}" class="text-decoration-none text-white">Add Appointment</a></button>
+</center>
+
+{% endblock %}

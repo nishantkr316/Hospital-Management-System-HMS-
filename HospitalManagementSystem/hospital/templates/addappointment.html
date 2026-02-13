@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Book Appointment</h1>
+    <form method="post" class="form w-50 mx-auto mt-5 border border-3 rounded p-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Select Doctor</label>
+            <select class="form-select" id="doctor" name="doctor">
+                {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="patient" class="form-label">Select Patient</label>
+            <select class="form-select" id="patient" name="patient">
+                {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date">
+        </div>
+        <div class="mb-3">
+            <label for="time" class="form-label">Time</label>
+            <input type="time" class="form-control" id="time" name="time">
+        </div>
+        <center><button type="submit" class="btn btn-success mt-5">Book Appointment</button></center>
+{% endblock %}
